@@ -29,10 +29,6 @@ object EnsomeCommandHandler{
 
   val eventHandlerLogic: Fold[EnsomeState, EnsomeEvent] = Fold(
     initial = EnsomeState(120),
-    reduce = {
-      case (state, Ate(quantity)) => UIO.succeed(state.copy(state.weight + quantity))
-      case (state, Workouted(time)) => UIO.succeed(state.copy(state.weight - (time * 2)))
-      case _ => impossible
-    }
+    _.handleEvent(_)
   )
 }
